@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - ./build.sh
+  artifacts:
+    paths:
+      - ./build
+    expire_in: 14d
+
+      # cache:
+      #  key: mastiffbaseline
+      #  paths:
+      #   - ./build
+test:
+  stage: test
+
+  script:
+    - ./test.sh
+
+  dependencies:
+    - build
+
+  artifacts:
+    paths:
+      - ./tests
